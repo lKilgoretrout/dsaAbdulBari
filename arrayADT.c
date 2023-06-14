@@ -251,6 +251,7 @@ void Menu()
     printf("(L)inearSearch      to check if current array contains a value\n");
     printf("create(R)andom      to fill the current array with random integers\n");
 	printf("insertion(s)ort     to sort the current array in place in O(n^2) time\n");
+    printf("(Q)uit              quit the program");
     printf("\n");
 }
 
@@ -302,9 +303,9 @@ int ExecuteCommand(char command, Array *arr)
         case 'R':
             CreateRandom(arr);
             break;
-		case 's':
-			insertionSort(arr);
-			break;
+	case 's':
+            insertionSort(arr);
+            break;
         case 'Q':
             return 0;
         default:
