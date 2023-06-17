@@ -11,8 +11,9 @@ typedef struct Array
 
 // input: Array struct (int[]);  sum (int)
 // scans array and prints the values of elements that add to 'sum'
-void findSumInArray(Array arr, int sum)
+void findSumInArrayHash(Array arr, int sum)
 {
+   
     int *hash;
     hash = (int *) calloc(arr.size, sizeof(int));
 
@@ -22,16 +23,27 @@ void findSumInArray(Array arr, int sum)
         {
             // index of hash is the value of element, so if arr.A[i] + hash[sum - arr.A[i]] = sum, then you got a winner!
             if (hash[sum - arr.A[i]])
-                printf("\n%d +  %d =  %d",arr.A[i], sum-arr.A[i],  sum);
+                continue; // printf("\n%d +  %d =  %d",arr.A[i], sum-arr.A[i],  sum);
         }
         hash[arr.A[i]] = arr.A[i];
+    }
+}
+
+void findSumInArrayTwoPointer(Array arr, int sum)
+{
+    for (int i=0; i<arr.size-1; i++)
+    {
+        for (int j=i+1; j<arr.size; j++)
+        {
+            if (arr.A[i] + arr.A[j] == sum)
+                continue;   // printf("%d + %d = %d", arr.A[i], arr.A[j], sum);
+        }
     }
 }
 
 
 int main()
 {
-    clock_t start, end;
     printf("How big an array do you want ?");
     
     int size;
@@ -45,8 +57,6 @@ int main()
     int sum;
     scanf("%d", &sum);
 
-    // START TIMING
-    start = clock();
 
     int *arr;
     arr = (int *) malloc (size * sizeof(int));
@@ -70,12 +80,25 @@ int main()
 
     Array array = { arr, size };
     
-    findSumInArray(array, sum);
+          
+    // START TIMING HASH 
+    clock_t start, end;
+    start = clock();
+
+    findSumInArrayHash(array, sum);
 
     end = clock();   
     
     double cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
-    printf("\nThat all took: %f seconds", cpu_time_used);   
+    printf("\nfindSumInArray()  took: %f seconds", cpu_time_used);   
+   
+          
+    // START TIMING TWO POINTER
+    start = clock();
+    findSumInArrayTwoPointer(array, sum);
+    end = clock();   
     
+    cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC; 
+    printf("\nfindSumInArrayTwoPointer()  took: %f seconds", cpu_time_used);   
 }
 
