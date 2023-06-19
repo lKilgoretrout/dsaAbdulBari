@@ -1,3 +1,5 @@
+// scan input arrays for pairs of ints that add to 'sum' and print them
+
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
