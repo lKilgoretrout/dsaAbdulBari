@@ -22,25 +22,44 @@ char* reverseString1(char* str, int size)
     return rev;
 }
 
+// reverse string in place using pointers
+void reverseString2(char* str, int size)
+{
+    char* end = str + size -1;
+    char* beg = str;
+    char  tmp;
+
+    while (beg < end)
+    {
+        tmp = *end;
+        *end = *beg;
+        *beg = tmp;
+        beg++;
+        end--;
+    }
+}
+
 int main()
 {
-    // int size;
-    // char* str;
-
-    //printf("gimme a string yo: ");
-    //scanf("%s", str);
-
-    //size = strlen(str);
-
     /*
-    char* rev = reverseString1(str, size);
+    int size;
+    char* str;
+    char* rev;
+
+    printf("gimme a string yo: ");
+    scanf("%s", str);
+
+    size = strlen(str);
+
+   
+    reverseString2(str, size);
     printf("\nyo new string dawg: \n");
-    printf("%s", rev);
+    printf("%s", str);
 
-    int revLength = strlen(rev);
-    printf("rev length: %d", revLength);
+    int revLength = strlen(str);
+    printf("\nrev length: %d", revLength);
     */
-
+    
     FILE* fptr;         
     clock_t start, end;
     double elapsed;
@@ -58,19 +77,36 @@ int main()
     
     //printf("%s\n", testfile);
    
+    // REVERSE STRING 1 (array copy)
     start = clock();
     char* reversed = reverseString1(testfile, sz);
     end = clock();
     elapsed = (double) (end - start) / CLOCKS_PER_SEC;
-    
     printf("Time elapsed for reversing War and Peace:  reverseString1() (two array):%lf\n", elapsed);
+   
+    char ch;
+    char* ptr = reversed;
+    for (int i=0; i<100; i++)
+    {  
+        ch = *ptr;
+        printf("%c", ch);
+        ptr++;
+    }  
+     
+    // REVERSE STRING 2 (two pointers))
+    start = clock();
+    reverseString2(reversed, sz);
+    end = clock();
+    elapsed = (double) (end - start) / CLOCKS_PER_SEC;
+    printf("\nTime elapsed for reversing War and Peace:  reverseString2 (two pointer):%lf\n", elapsed);
     
-    //int revLen = strlen(reversed);
-    //printf("\nrevLen: %d", revLen);
-
-   // for (int i=0; i<=sz+1; i++)
-   //     printf("%c", reversed[i]);
-
-    // printf("%s", reversed);
+    ptr = &reversed[0];
+    for (int i=0; i<100; i++)
+    {  
+        ch = *ptr;
+        printf("%c", ch);
+        ptr++;
+    }  
     fclose(fptr);
+    
 }
