@@ -8,7 +8,7 @@ typedef struct Matrix
 } Matrix;
 
 void Set(Matrix *m, int i, int j, int x) { if (i==j) m->A[i-1]=x; }
-int  Get(Matrix *m, int i, int j)        { return (i==j) ? m->A[i-1] : -1; }
+int  Get(Matrix *m, int i, int j)        { return (i==j) ? m->A[i-1] : 0; }
 
 void Display(Matrix *m)
 {
